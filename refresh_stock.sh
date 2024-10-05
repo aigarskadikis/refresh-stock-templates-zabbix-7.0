@@ -8,8 +8,8 @@ rm -rf /tmp/zabbix-release-7.0
 # "Administration" => "General" => "API tokens"
 SID=$(cat ~/.z70auth)
 
-# API endpoint
-JSONRPC=$(cat ~/.z70url)
+# Frontend endpoint
+JSONRPC=$(cat ~/.z70url)/api_jsonrpc.php
 
 # download latest 7.0 branch
 curl -kL https://github.com/zabbix/zabbix/archive/refs/heads/release/7.0.zip -o /tmp/7.0.zip
