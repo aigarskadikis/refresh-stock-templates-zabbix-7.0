@@ -18,7 +18,7 @@ unzip main.zip
 
 Navigate to project directory
 ```
-cd refresh-stock-templates-zabbix-7.0
+cd refresh-stock-templates-zabbix-7.0-main
 ```
 
 See the files used for URL and TOKEN
