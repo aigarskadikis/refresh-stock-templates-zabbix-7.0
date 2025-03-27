@@ -4,6 +4,8 @@
 rm -rf /tmp/7.0.zip
 rm -rf /tmp/zabbix-release-7.0
 
+mkdir -p /tmp/zabbix-release-7.0
+
 # generate a SID by using:
 # "Administration" => "General" => "API tokens"
 SID=$(cat ~/.z70auth)
@@ -11,11 +13,12 @@ SID=$(cat ~/.z70auth)
 # Frontend endpoint
 JSONRPC=$(cat ~/.z70url)/api_jsonrpc.php
 
-# download latest 7.0 branch
-curl -kL https://github.com/zabbix/zabbix/archive/refs/heads/release/7.0.zip -o /tmp/7.0.zip
+# download latest 7.0 branch from github
+#curl -kL https://github.com/zabbix/zabbix/archive/refs/heads/release/7.0.zip -o /tmp/7.0.zip
+curl -kL "https://git.zabbix.com/rest/api/latest/projects/ZBX/repos/zabbix/archive?at=refs%2Fheads%2Frelease%2F7.0&format=zip" -o /tmp/zabbix-release-7.0/7.0.zip
 
 # unzip
-cd /tmp
+cd /tmp/zabbix-release-7.0
 unzip 7.0.zip
 
 # go back to previous directory where PHP program is located
