@@ -49,12 +49,12 @@ grep "7.0" refresh_stock.sh
 
 Install URL of frontend
 ```bash
-echo "https://127.0.0.1:44370" | tee ~/.z70url
+echo "https://127.0.0.1:44370" | tee ~/.zabbix-7.0-url
 ```
 
 Install token
 ```bash
-echo "af021232df58dc3fbbf7a6b3bcf70239dd73367afd8534363463ff24c823a0c3" | tee ~/.z70auth
+echo "token" | tee ~/.zabbix-7.0-auth
 ```
 
 Run program to renew all templates and media types
