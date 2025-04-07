@@ -71,3 +71,19 @@ Install cronjob:
 ```
 echo "57 3 * * * zabbix /var/lib/zabbix/refresh-stock-templates-zabbix-7.0-main/refresh_stock.sh > /var/log/zabbix/refresh_70_templates.log 2>&1" | sudo tee /etc/cron.d/refresh_zabbix70_templates
 ```
+
+Version 7.2 compatibility. Replace keyword "7.0" with 7.2
+```bash
+sed 's|7.0|7.2|g' refresh_stock.sh > 7.2.sh
+```
+
+Set executable
+```
+chmod +x 7.2.sh
+```
+
+Make sure the frontend URL and token exists
+```
+echo "https://127.0.0.1:44372" | tee ~/.zabbix-7.2-url
+echo "token" | tee ~/.zabbix-7.2-auth
+```
