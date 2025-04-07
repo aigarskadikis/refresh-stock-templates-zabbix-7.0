@@ -37,14 +37,13 @@ $request = json_encode([
         ],
         'source' => file_get_contents($path)
     ],
-    'auth' => $auth,
     'id' => (string)time()
 ]);
 
 $response = file_get_contents($api_url, false, stream_context_create([
                 'http' => [
                         'method'  => 'POST',
-                        'header'  => 'Content-Type: application/json',
+                        'header'  => ['Content-Type: application/json', 'Authorization: Bearer '.$auth],
                         'content' => $request
         ],'ssl' => [
                         'allow_self_signed'     => true,

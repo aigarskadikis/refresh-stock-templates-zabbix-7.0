@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# remove old dir. start fresh
-rm -rf /tmp/7.0.zip
+# current directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# remove old directory
 rm -rf /tmp/zabbix-release-7.0
 
 mkdir -p /tmp/zabbix-release-7.0
@@ -14,30 +16,25 @@ SID=$(cat ~/.z70auth)
 JSONRPC=$(cat ~/.z70url)/api_jsonrpc.php
 
 # download latest 7.0 branch from github
-#curl -kL https://github.com/zabbix/zabbix/archive/refs/heads/release/7.0.zip -o /tmp/7.0.zip
-curl -kL "https://git.zabbix.com/rest/api/latest/projects/ZBX/repos/zabbix/archive?at=refs%2Fheads%2Frelease%2F7.0&format=zip" -o /tmp/zabbix-release-7.0/7.0.zip
+curl -kL "https://git.zabbix.com/rest/api/latest/projects/ZBX/repos/zabbix/archive?at=refs%2Fheads%2Frelease%2F7.0&format=zip" -o "/tmp/zabbix-release-7.0/7.0.zip"
 
 # unzip
 cd /tmp/zabbix-release-7.0
 unzip 7.0.zip
 
-# go back to previous directory where PHP program is located
 cd -
 
 # start template import
 find /tmp/zabbix-release-7.0/templates -type f -name '*.yaml' | \
 while IFS= read -r TEMPLATE
 do {
-php delete_missing.php $SID $JSONRPC $TEMPLATE | jq .result | grep "true" > /dev/null && echo "OK $TEMPLATE" 
+#php "$SCRIPT_DIR/delete_missing.php" "$SID" "$JSONRPC" "$TEMPLATE" | jq .result
+
+php "$SCRIPT_DIR/delete_missing.php" "$SID" "$JSONRPC" "$TEMPLATE" | jq .result | grep "true" > /dev/null && echo "OK $TEMPLATE" 
 # if 'true' not received the print the template name
 [[ $? -ne 0 ]] && echo "failed $TEMPLATE"
 } done
 
-find /tmp/zabbix-release-7.0/templates/media -type f -name '*.yaml' | \
-while IFS= read -r MEDIA
-do {
-php media_type.php $SID $JSONRPC $MEDIA | jq .result | grep "true" > /dev/null && echo "OK $MEDIA"
-# if 'true' not received the print the template name
-[[ $? -ne 0 ]] && echo "failed $MEDIA"
-} done
+# remove working directory
+rm -rf /tmp/zabbix-release-7.0
 
