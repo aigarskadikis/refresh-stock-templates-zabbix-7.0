@@ -11,6 +11,12 @@ Make home directory
 mkdir -p /var/lib/zabbix
 ```
 
+If this script was run before then clean up remainings
+```bash
+rm "/tmp/zabbix-release-7.0" -rf
+rm "/var/log/zabbix/refresh_70_templates*" -rf
+```
+
 Open service user "zabbix"
 ```bash
 su - zabbix -s /bin/bash
@@ -18,7 +24,7 @@ su - zabbix -s /bin/bash
 
 Fetch this project
 ```bash
-curl -kL -o main.zip https://github.com/aigarskadikis/refresh-stock-templates-zabbix-7.0/archive/refs/heads/main.zip
+curl -kL "https://github.com/aigarskadikis/refresh-stock-templates-zabbix-7.0/archive/refs/heads/main.zip" -o main.zip
 ```
 
 Unpack archive
