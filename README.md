@@ -69,5 +69,5 @@ exit
 
 Install cronjob:
 ```
-echo "42 * * * * root /var/lib/zabbix/refresh-stock-templates-zabbix-7.0/refresh_stock.sh > /var/log/zabbix/refresh_70_templates.$(date '+\%Y_\%m_\%d').log 2>&1" | sudo tee /etc/cron.d/refresh_zabbix70_templates
+echo "57 3 * * * zabbix /var/lib/zabbix/refresh-stock-templates-zabbix-7.0-main/refresh_stock.sh > /var/log/zabbix/refresh_70_templates.log 2>&1" | sudo tee /etc/cron.d/refresh_zabbix70_templates
 ```
