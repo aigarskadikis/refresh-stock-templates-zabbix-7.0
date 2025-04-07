@@ -44,7 +44,7 @@ cd refresh-stock-templates-zabbix-7.0-main
 
 See the files used for URL and TOKEN
 ```bash
-grep z70 refresh_stock.sh
+grep "7.0" refresh_stock.sh
 ```
 
 Install URL of frontend
